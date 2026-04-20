@@ -30,9 +30,14 @@ def create_room() -> dict[str, str]:
     return {"room_code": room_code}
 
 
+from pydantic import BaseModel
+
+class JoinRoomRequest(BaseModel):
+    room_code: str
+
+
 @app.post("/join_room")
-def join_room(room_code: str) -> dict[str, str]:
-    if room_code in rooms:
+def join_room(data: JoinRoomRequest) -> dict[str, str]:
+    if data.room_code in rooms:
         return {"status": "ok"}
     return {"status": "error", "message": "Room not found"}
-

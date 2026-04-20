@@ -4,9 +4,9 @@ import requests
 
 
 class NetworkManager:
-    """Handles HTTP communication with the local backend server."""
+    """Handles HTTP communication with the backend server."""
 
-    def __init__(self, base_url: str = "http://localhost:8000") -> None:
+    def __init__(self, base_url: str = "https://revenge.up.railway.app") -> None:
         self.base_url = base_url.rstrip("/")
 
     def create_room(self) -> str:
