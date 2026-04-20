@@ -10,6 +10,7 @@ app = FastAPI()
 rooms: dict[str, dict[str, str]] = {}
 
 
+
 def generate_room_code(length: int = 6) -> str:
     alphabet = string.ascii_uppercase + string.digits
     while True:
@@ -30,7 +31,9 @@ def create_room() -> dict[str, str]:
     return {"room_code": room_code}
 
 
-if __name__ == "__main__":
-    import uvicorn
+import os
+import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
