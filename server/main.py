@@ -7,8 +7,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-rooms: dict[str, dict[str, str]] = {}
-
+rooms: dict[str, dict] = {}
 
 
 def generate_room_code(length: int = 6) -> str:
@@ -31,9 +30,17 @@ def create_room() -> dict[str, str]:
     return {"room_code": room_code}
 
 
-import os
-import uvicorn
+@app.post("/join_room")
+def join_room(room_code: str) -> dict[str, str]:
+    if room_code in rooms:
+        return {"status": "ok"}
+    return {"status": "error", "message": "Room not found"}
 
+
+# 🚀 Rodar localmente (opcional)
 if __name__ == "__main__":
+    import uvicorn
+    import os
+
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
+    uvicorn.run("server.main:app", host="0.0.0.0", port=port)
