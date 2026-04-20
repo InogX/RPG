@@ -107,7 +107,8 @@ class EntrarSalaScreen(BaseScreen):
 
         if data and data.get("status") == "ok":
             self._set_feedback("Código válido! Entrando...", "#52C779")
-            print(f"Entrando na sala: {codigo}")
+            from ui.lobby import LobbyScreen
+            self.navigator.show(LobbyScreen, room_code=codigo)
             return
 
         self._set_feedback("Código inválido", "#E05A5A")
